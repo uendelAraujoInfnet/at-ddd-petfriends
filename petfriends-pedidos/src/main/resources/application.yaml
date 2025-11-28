@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: petfriends-pedidos
+  datasource:
+    url: jdbc:h2:mem:pedidosdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  cloud:
+    function:
+      definition: pedidoFechadoSupplier;pedidoDespachadoSupplier
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        pedidoFechadoSupplier-out-0:
+          destination: pedidos-fechados
+        pedidoDespachadoSupplier-out-0:
+          destination: pedidos-despachados
+      rabbit:
+        bindings:
+          pedidoFechadoSupplier-out-0:
+            producer:
+              routing-key-expression: '''pedidos-fechados'''
+          pedidoDespachadoSupplier-out-0:
+            producer:
+              routing-key-expression: '''pedidos-despachados'''
+
+logging:
+  level:
+    org.springframework.cloud.stream: INFO
