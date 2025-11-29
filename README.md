@@ -48,11 +48,11 @@ Este projeto implementa **três microsserviços totalmente independentes**, segu
 
 # ⚙️ **Requisitos**
 
-- Java 17  
+- Java 21  
 - Maven  
 - Docker + Docker Compose  
 - IntelliJ / VSCode  
-- Postman ou Curl  
+- Curl  
 
 ---
 
